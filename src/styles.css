@@ -15,7 +15,7 @@
 
   /* Feedback */
   --danger: #ef4444;
-  --sucess: #19ad70;
+  --success: #19ad70;
 
   /* Colors */
   --blue-dark: #1d4ed8;
@@ -52,6 +52,11 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
+}
+
+ul,
+ol {
+  list-style: none;
 }
 
 body {

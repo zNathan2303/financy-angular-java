@@ -1,0 +1,39 @@
+<app-header></app-header>
+<main>
+  <div class="top-container">
+    <div>
+      <h1>Transações</h1>
+      <h2>Gerencie todas as suas transações financeiras</h2>
+    </div>
+    <button>
+      <lucide-icon [img]="Plus" />
+      Nova transação
+    </button>
+  </div>
+  <div class="filters">
+    <div class="search">
+      <app-input-base fieldName="search" [formControlInput]="searchFormControl" labelText="Buscar"
+        placeholder="Buscar por descrição">
+        <lucide-icon [img]="Search" size="16" />
+      </app-input-base>
+    </div>
+
+    <app-select-input label="Tipo" name="type" placeholder="Selecione o tipo">
+
+      <app-select-option value="defaultValue" optionName="Todos">
+        <span class="label">Todos</span>
+      </app-select-option>
+
+      <app-select-option value="income" optionName="Entrada">
+        <lucide-icon [img]="CircleArrowUp" size="16" />
+        <span class="label">Entrada</span>
+      </app-select-option>
+
+      <app-select-option value="expense" optionName="Saída">
+        <lucide-icon [img]="CircleArrowDown" size="16" />
+        <span class="label">Saída</span>
+      </app-select-option>
+
+    </app-select-input>
+  </div>
+</main>

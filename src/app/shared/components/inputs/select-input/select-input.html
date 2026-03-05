@@ -1,0 +1,12 @@
+<label (click)="toggleMenuState()">{{ label() }}</label>
+
+<button id="select-button" type="button" (click)="toggleMenuState()">
+  <div id="selected-value">{{ displayValue() }}</div>
+  <lucide-icon [img]="ChevronIcon()" size="16" />
+</button>
+
+@if (isOpen()) {
+<ul id="options">
+  <ng-content />
+</ul>
+}

@@ -1,0 +1,103 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 48px;
+}
+
+.top-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-container div h1 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--gray-800);
+}
+
+.top-container div h2 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--gray-600);
+}
+
+.top-container button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: none;
+  font: inherit;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--brand-base);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.top-container button:hover {
+  transform: scale(103%);
+}
+
+.top-container button:active {
+  transform: scale(101%);
+}
+
+.top-container button lucide-icon {
+  color: var(--gray-100);
+}
+
+.filters {
+  background-color: white;
+  border-radius: 12px;
+  width: 100%;
+  display: grid;
+  gap: 16px;
+  grid-template-areas: 'a1 a2 a3 a4';
+  grid-template-columns: repeat(4, 1fr);
+  padding: 20px 24px 24px 24px;
+  border: 1px solid var(--gray-200);
+}
+
+.filters .search {
+  grid-area: a1;
+}
+
+.filters app-select-input {
+  grid-area: a2;
+}
+
+app-select-option[value='income'] {
+  color: var(--green-dark);
+}
+
+app-select-option[value='income'] lucide-icon {
+  color: var(--green-base);
+}
+
+app-select-option[value='expense'] {
+  color: var(--red-dark);
+}
+
+app-select-option[value='expense'] lucide-icon {
+  color: var(--red-base);
+}

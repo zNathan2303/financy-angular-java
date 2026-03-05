@@ -1,0 +1,49 @@
+:host {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
+
+div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  color: var(--gray-800);
+  font-weight: 400;
+}
+
+:host lucide-icon:last-child {
+  margin-left: auto;
+  color: var(--brand-base);
+}
+
+:host:has(input:checked),
+:host:hover {
+  background-color: #fafafa;
+}
+
+:host:has(input:focus) {
+  outline: 1px solid var(--brand-base);
+  z-index: 10;
+}
+
+:host lucide-icon:last-child {
+  display: none;
+}
+
+:host:has(input:checked) lucide-icon:last-child {
+  display: block;
+}
+
+input[type='radio'] {
+  all: unset;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}

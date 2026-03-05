@@ -13,7 +13,7 @@ export class InputBase {
   labelText = input.required<string>();
   fieldName = input.required<string>();
   placeholder = input.required<string>();
-  type = input<'email' | 'text'>('text');
+  type = input<'email' | 'text' | 'search'>('text');
 
   isFocused = signal(false);
   isInvalid = signal(false);

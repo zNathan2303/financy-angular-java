@@ -1,0 +1,62 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  position: relative;
+}
+
+label {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-700);
+  font-weight: 500;
+  cursor: pointer;
+  width: fit-content;
+}
+
+#select-button {
+  display: flex;
+  padding: 14px 12px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid var(--gray-300);
+  background-color: white;
+  cursor: pointer;
+}
+
+:host:has(#select-button:focus-visible) label {
+  color: var(--brand-base);
+}
+
+#select-button:focus-visible {
+  outline: 1px solid var(--brand-base);
+}
+
+#select-button lucide-icon {
+  color: var(--gray-700);
+}
+
+#selected-value {
+  color: var(--gray-800);
+  font-size: 16px;
+  line-height: 18px;
+}
+
+#options {
+  position: absolute;
+  width: 100%;
+  margin-top: 30%;
+  border-radius: 8px;
+  border: 1px solid var(--gray-300);
+  background: white;
+}
+
+:host ::ng-deep #options app-select-option:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+:host ::ng-deep #options app-select-option:last-child {
+  border-radius: 0 0 8px 8px;
+}
