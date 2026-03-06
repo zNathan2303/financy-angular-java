@@ -35,5 +35,20 @@
       </app-select-option>
 
     </app-select-input>
+
+    <app-select-input label="Categoria" name="category" placeholder="Selecione a categoria">
+
+      <app-select-option value="defaultValue" optionName="Todas">
+        <span class="label">Todas</span>
+      </app-select-option>
+
+      @for (category of categories; track category.id) {
+      <app-select-option [value]="category.title" [optionName]="category.title">
+        <p [ngClass]="`tag-${category.color}-color`">
+          {{ category.title }}
+        </p>
+      </app-select-option>
+      }
+    </app-select-input>
   </div>
 </main>

@@ -82,22 +82,31 @@ main {
   grid-area: a1;
 }
 
-.filters app-select-input {
+.filters app-select-input[label='Tipo'] {
   grid-area: a2;
 }
 
-app-select-option[value='income'] {
+app-select-input[label='Tipo'] app-select-option[value='income'] {
   color: var(--green-dark);
 }
 
-app-select-option[value='income'] lucide-icon {
+app-select-input[label='Tipo'] app-select-option[value='income'] lucide-icon {
   color: var(--green-base);
 }
 
-app-select-option[value='expense'] {
+app-select-input[label='Tipo'] app-select-option[value='expense'] {
   color: var(--red-dark);
 }
 
-app-select-option[value='expense'] lucide-icon {
+app-select-input[label='Tipo'] app-select-option[value='expense'] lucide-icon {
   color: var(--red-base);
+}
+
+.filters app-select-input[label='Categoria'] {
+  grid-area: a3;
+}
+
+app-select-input[label='Categoria'] app-select-option p {
+  padding: 4px 12px;
+  border-radius: 50px;
 }
