@@ -27,7 +27,7 @@ export class SelectOption {
   select = inject<SelectInput>(SelectInput, { optional: true });
   thisComponent = inject(ElementRef<HTMLElement>);
 
-  value = input.required<string>();
+  value = input.required<string | null>();
   optionName = input.required<string>();
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class SelectOption {
   }
 
   onClick(event: PointerEvent) {
-    this.select?.selectValue(this.optionName());
+    this.select?.selectOptionName(this.optionName(), this.value());
 
     const isMouseOrTouch = event.pointerType == 'mouse' || event.pointerType == 'touch';
 

@@ -133,18 +133,3 @@ export class Dashboard {
     },
   ];
 }
-
-const transaction = {
-  income: Boolean,
-  description: String,
-  date: Date,
-  value: Number,
-  category: Number,
-};
-
-const category = {
-  title: String,
-  description: String,
-  icon: String,
-  color: String,
-};

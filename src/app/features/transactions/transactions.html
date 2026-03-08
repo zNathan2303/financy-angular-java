@@ -18,15 +18,16 @@
       </app-input-base>
     </div>
 
-    <app-select-input label="Tipo" name="type" placeholder="Selecione o tipo">
+    <app-select-input (viewSelectedValue)="changeFilteredType($event)" label="Tipo" name="type"
+      placeholder="Selecione o tipo">
 
-      <app-select-option value="defaultValue" optionName="Todos">
-        <span class="label">Todos</span>
+      <app-select-option [value]="null" optionName="Todos">
+        Todos
       </app-select-option>
 
       <app-select-option value="income" optionName="Entrada">
         <lucide-icon [img]="CircleArrowUp" size="16" />
-        <span class="label">Entrada</span>
+        Entrada
       </app-select-option>
 
       <app-select-option value="expense" optionName="Saída">
@@ -36,10 +37,11 @@
 
     </app-select-input>
 
-    <app-select-input label="Categoria" name="category" placeholder="Selecione a categoria">
+    <app-select-input (viewSelectedValue)="changeFilteredCategory($event)" label="Categoria" name="category"
+      placeholder="Selecione a categoria">
 
-      <app-select-option value="defaultValue" optionName="Todas">
-        <span class="label">Todas</span>
+      <app-select-option [value]="null" optionName="Todas">
+        Todas
       </app-select-option>
 
       @for (category of categories; track category.id) {
@@ -50,5 +52,132 @@
       </app-select-option>
       }
     </app-select-input>
+
+    <app-select-input (viewSelectedValue)="changeFilteredDate($event)" label="Período" name="period"
+      placeholder="Selecione um período">
+
+      <app-select-option [value]="null" optionName="Todos">
+        <span class="label">Todos</span>
+      </app-select-option>
+
+      @for (month of listMonthsOfTransactions; track month.id) {
+      <app-select-option [value]="month.dateInString" [optionName]="month.month">
+        <p>
+          {{ month.month }}
+        </p>
+      </app-select-option>
+      }
+    </app-select-input>
   </div>
+  @if (filteredTransactions().length > 0) {
+  <table>
+    <thead>
+      <tr>
+        <th>DESCRIÇÃO</th>
+        <th>DATA</th>
+        <th>CATEGORIA</th>
+        <th>TIPO</th>
+        <th>VALOR</th>
+        <th>AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (transaction of listTransactions(); track transaction.id) {
+      <tr>
+        <td>
+          <div class="description">
+            <lucide-icon [img]="getCategoryIcon(transaction.category.icon)" size="16"
+              [ngClass]="`tag-${transaction.category.color}-color`" />
+            {{ transaction.description }}
+          </div>
+        </td>
+        <td>
+          <div class="date">
+            {{ transaction.date | date:'dd/MM/yy'}}
+          </div>
+        </td>
+        <td>
+          <div class="category">
+            <p [ngClass]="`tag-${transaction.category.color}-color`">
+              {{ transaction.category.title }}
+            </p>
+          </div>
+        </td>
+        <td>
+          @if (transaction.income) {
+          <div class="type income">
+            <lucide-icon [img]="CircleArrowUp" size="16" />
+            Entrada
+          </div>
+          } @else {
+          <div class="type expense">
+            <lucide-icon [img]="CircleArrowDown" size="16" />
+            Saída
+          </div>
+          }
+        </td>
+        <td>
+          <div class="value">
+            @if (transaction.income) {
+            {{ transaction.value | currency:'BRL': '+ R$'}}
+            } @else {
+            {{ transaction.value | currency:'BRL': '+ R$'}}
+            }
+          </div>
+        </td>
+        <td>
+          <div class="actions">
+            <button class="trash">
+              <lucide-icon [img]="Trash" size="16" />
+            </button>
+            <button class="edit">
+              <lucide-icon [img]="SquarePen" size="16" />
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">
+          <div class="count-results">
+            <span>{{ (currentStartTransaction() + 1) }} a {{ currentEndTransaction() }}</span> | <span>{{
+              this.filteredTransactions().length }}</span>
+            resultados
+          </div>
+        </td>
+        <td colspan="3">
+          <div class="pagination">
+            <button [disabled]="currentTablePageNumber() == 1" (click)="goToPreviousTablePage()">
+              <lucide-icon [img]="ChevronLeft" size="16" />
+            </button>
+
+            @for (page of intervalTablePageNumber(); track page) {
+            @if (page != null) {
+            <button (click)="toggleTablePage(page)" class="page"
+              [ngClass]="{'selected': page == currentTablePageNumber()}">
+              <p>{{ page }}</p>
+            </button>
+            } @else {
+            <div>...</div>
+            }
+            }
+            <button [disabled]="currentTablePageNumber() == lastTablePageNumber()" (click)="goToNextTablePage()">
+              <lucide-icon [img]="ChevronRight" size="16" />
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  } @else if (transactions.length > 0) {
+  <div>
+    Nenhuma transação encontrada para os filtros selecionados.
+  </div>
+  } @else {
+  <div>
+    Você não tem transações.
+  </div>
+  }
 </main>

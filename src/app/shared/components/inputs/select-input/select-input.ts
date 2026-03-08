@@ -6,6 +6,7 @@ import {
   HostListener,
   inject,
   input,
+  output,
   signal,
 } from '@angular/core';
 import {
@@ -38,8 +39,10 @@ export class SelectInput {
   label = input.required<string>();
   name = input.required<string>();
 
-  selectedValue = signal<string | null>(null);
-  displayValue = computed(() => this.selectedValue() ?? this.placeholder());
+  selectedOptionName = signal<string | null>(null);
+  displayValue = computed(() => this.selectedOptionName() ?? this.placeholder());
+  viewSelectedValue = output<string | null>();
+
   isOpen = signal(false);
 
   // Após abrir o menu focar a opção selecionada ou a primeira opção
@@ -84,8 +87,9 @@ export class SelectInput {
     this.options.push(option);
   }
 
-  selectValue(value: string) {
-    this.selectedValue.set(value);
+  selectOptionName(optionName: string, value: string | null) {
+    this.selectedOptionName.set(optionName);
+    this.viewSelectedValue.emit(value);
   }
 
   toggleMenuState() {
@@ -93,6 +97,6 @@ export class SelectInput {
   }
 
   isSelected = (optionName: string): boolean => {
-    return this.selectedValue() == optionName;
+    return this.selectedOptionName() == optionName;
   };
 }
