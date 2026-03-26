@@ -347,6 +347,7 @@ export class Transactions {
   constructor() {
     this.searchFormControl.valueChanges.subscribe((value) => {
       this.searchValue.set(value ?? '');
+      this.currentTablePageNumber.set(1);
     });
   }
 
