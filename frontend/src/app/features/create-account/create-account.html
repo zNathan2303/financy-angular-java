@@ -1,0 +1,34 @@
+<app-logo></app-logo>
+<main>
+  <div class="top-items">
+    <h1>Criar conta</h1>
+    <h2>Comece a controlar suas finanças ainda hoje</h2>
+  </div>
+  <form [formGroup]="registerForm" (ngSubmit)="submit()">
+    <app-input-base [labelText]="'Nome completo'" [formControlInput]="nameFormControl" [fieldName]="'nome'"
+      [placeholder]="'Seu nome completo'" [submitted]="submitted()"
+      [errorMessage]="'Nome inválido. Deve ter no máximo 50 caracteres'">
+      <lucide-icon [img]="UserRound" size="16" />
+    </app-input-base>
+    <app-input-base [labelText]="'E-mail'" [formControlInput]="emailFormControl" [fieldName]="'email'"
+      [placeholder]="'mail@exemplo.com'" [type]="'email'" [submitted]="submitted()">
+      <lucide-icon [img]="Mail" size="16" />
+    </app-input-base>
+    <app-password-input [formControlPassword]="passwordFormControl" [submitted]="submitted()" />
+    <button type="submit" class="create-account">
+      Cadastrar
+    </button>
+  </form>
+  <div class="divide-line">
+    <div class="line"></div>
+    <span>ou</span>
+    <div class="line"></div>
+  </div>
+  <div class="login-container">
+    <p>Já tem uma conta?</p>
+    <button class="login" (click)="goToLoginPage()">
+      <lucide-icon [img]="LogIn" size="18" />
+      Fazer login
+    </button>
+  </div>
+</main>

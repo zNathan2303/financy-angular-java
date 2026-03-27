@@ -83,6 +83,7 @@ export class Login {
         },
       });
   }
+
   goToCreateAccountPage() {
     this.router.navigateByUrl('/create-account');
   }

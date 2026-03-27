@@ -18,6 +18,7 @@ export class InputBase {
   isFocused = signal(false);
   isDisabled = input(false);
   submitted = input(false);
+  errorMessage = input('Campo inválido');
 
   getStateClasses() {
     return {

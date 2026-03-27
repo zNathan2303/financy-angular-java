@@ -22,8 +22,8 @@ export const routes: Routes = [
   {
     path: 'create-account',
     loadComponent: () =>
-      import('./shared/pages/not-implemented/not-implemented').then((c) => c.NotImplemented),
-    title: 'Página não implementada | Financy',
+      import('./features/create-account/create-account').then((c) => c.CreateAccount),
+    title: 'Criar conta | Financy',
   },
   {
     path: 'dashboard',

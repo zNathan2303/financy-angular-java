@@ -10,9 +10,9 @@
 @if (isInvalid()) {
 <span class="error-message">
   @if (type() == 'email') {
-  * E-mail inválido
+  * E-mail inválido. Deve ter no máximo 300 caracteres
   } @else {
-  * Campo inválido
+  * {{ errorMessage() }}
   }
 </span>
 }
