@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { LucideAngularModule, ChevronRight } from 'lucide-angular';
 import { NgClass, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Category } from '../api/dashboard-model';
 
 @Component({
   selector: 'app-total-per-category',
@@ -12,15 +13,5 @@ import { RouterLink } from '@angular/router';
 export class TotalPerCategory {
   readonly ChevronRight = ChevronRight;
 
-  categoryTotalAmount = input.required<
-    Array<{
-      id: number;
-      category: {
-        title: string;
-        color: string;
-      };
-      items: number;
-      totalValue: number;
-    }>
-  >();
+  categoryTotalAmount = input.required<Array<Category>>();
 }

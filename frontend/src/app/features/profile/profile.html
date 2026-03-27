@@ -2,11 +2,11 @@
 <form [formGroup]="updateForm" (submit)="submit()">
   <div class="top-content">
     <div class="icon">
-      CT
+      {{ letterIcon() }}
     </div>
     <div class="profile-info">
-      <p class="full-name">{{ fullName }}</p>
-      <p class="email">{{ email }}</p>
+      <p class="full-name">{{ fullName() }}</p>
+      <p class="email">{{ email() }}</p>
     </div>
   </div>
   <div class="divide-line"></div>

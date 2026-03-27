@@ -6,3 +6,13 @@
   <input #inputRef [id]="fieldName()" [type]="type()" [formControl]="formControlInput()" [placeholder]="placeholder()"
     (focus)="gainFocus()" (blur)="isFocused.set(false)" />
 </div>
+
+@if (isInvalid()) {
+<span class="error-message">
+  @if (type() == 'email') {
+  * E-mail inválido
+  } @else {
+  * Campo inválido
+  }
+</span>
+}

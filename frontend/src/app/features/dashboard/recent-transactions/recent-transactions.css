@@ -37,6 +37,16 @@
   margin: 20px 12px;
 }
 
+.no-transaction {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--gray-200);
+  width: 100%;
+  color: var(--gray-800);
+}
+
 .transaction {
   display: flex;
   align-items: center;
@@ -140,14 +150,6 @@
   padding: 10px;
   margin: 10px;
   transition: 0.2s;
-}
-
-.new-transaction button:hover {
-  transform: scale(105%);
-}
-
-.new-transaction button:active {
-  transform: scale(102%);
 }
 
 .new-transaction button:focus-visible {

@@ -7,26 +7,27 @@ import { tap } from 'rxjs';
   providedIn: 'root',
 })
 export class Auth {
-  private readonly apiUrl = 'https://financy-angular-java.onrender.com';
-
   constructor(private http: HttpClient) {}
 
-  login({ email, password }: AuthRequest) {
-    return this.http
-      .post<AuthResponse>(`${this.apiUrl}/financy/v1/auth/login`, { email, password })
-      .pipe(
-        tap((res) => {
+  login({ email, password }: AuthRequest, rememberMe: boolean) {
+    return this.http.post<AuthResponse>('/financy/v1/auth/login', { email, password }).pipe(
+      tap((res) => {
+        if (rememberMe) {
           localStorage.setItem('token', res.token);
-        }),
-      );
+        } else {
+          sessionStorage.setItem('token', res.token);
+        }
+      }),
+    );
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token') || sessionStorage.getItem('token');
   }
 
   logout() {
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 
   isAuthenticated(): boolean {

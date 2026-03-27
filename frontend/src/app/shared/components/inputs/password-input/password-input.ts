@@ -17,8 +17,8 @@ export class PasswordInput {
   formControlPassword = input.required<FormControl>();
 
   isFocused = signal(false);
-  isInvalid = signal(false);
   isHidden = signal(true);
+  submitted = input.required<boolean>();
 
   getStateClasses() {
     return {
@@ -28,8 +28,12 @@ export class PasswordInput {
     };
   }
 
+  isInvalid() {
+    const control = this.formControlPassword();
+    return control.invalid && this.submitted();
+  }
+
   gainFocus() {
-    this.isInvalid.set(false);
     this.isFocused.set(true);
   }
 

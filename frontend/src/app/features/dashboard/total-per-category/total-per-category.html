@@ -1,4 +1,4 @@
-<div class="header" [ngClass]="{'no-categories': categoryTotalAmount().length === 0}">
+<div class="header">
   <p>CATEGORIAS</p>
   <a routerLink="/categories" class="link-to-another-page">
     Gerenciar
@@ -6,19 +6,25 @@
   </a>
 </div>
 <div class="categories">
+  @if (categoryTotalAmount().length == 0) {
+  <div class="no-category">
+    Não há categorias.
+  </div>
+  } @else {
   @for (category of categoryTotalAmount(); track category.id) {
   <div class="category">
     <div class="tag">
-      <p [ngClass]="`tag-${category.category.color}-color`">
-        {{ category.category.title }}
+      <p [ngClass]="`tag-${category.color}-color`">
+        {{ category.title }}
       </p>
     </div>
     <div class="quantity">
-      <p>{{ category.items }} itens</p>
+      <p>{{ category.itemsCount }} itens</p>
     </div>
     <div class="amount">
       <p>{{ category.totalValue | currency:'BRL' }}</p>
     </div>
   </div>
+  }
   }
 </div>

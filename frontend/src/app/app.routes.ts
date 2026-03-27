@@ -14,6 +14,18 @@ export const routes: Routes = [
     title: 'Área de login | Financy',
   },
   {
+    path: 'recover-password',
+    loadComponent: () =>
+      import('./shared/pages/not-implemented/not-implemented').then((c) => c.NotImplemented),
+    title: 'Página não implementada | Financy',
+  },
+  {
+    path: 'create-account',
+    loadComponent: () =>
+      import('./shared/pages/not-implemented/not-implemented').then((c) => c.NotImplemented),
+    title: 'Página não implementada | Financy',
+  },
+  {
     path: 'dashboard',
     canActivate: [authGuard],
     loadComponent: () => import('./features/dashboard/dashboard').then((c) => c.Dashboard),
@@ -24,6 +36,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./features/transactions/transactions').then((c) => c.Transactions),
     title: 'Transações | Financy',
+  },
+  {
+    path: 'categories',
+    loadComponent: () =>
+      import('./shared/pages/not-implemented/not-implemented').then((c) => c.NotImplemented),
+    title: 'Página não implementada | Financy',
   },
   {
     path: 'profile',

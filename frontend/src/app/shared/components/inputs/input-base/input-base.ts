@@ -16,8 +16,8 @@ export class InputBase {
   type = input<'email' | 'text' | 'search'>('text');
 
   isFocused = signal(false);
-  isInvalid = signal(false);
   isDisabled = input(false);
+  submitted = input(false);
 
   getStateClasses() {
     return {
@@ -28,8 +28,12 @@ export class InputBase {
     };
   }
 
+  isInvalid() {
+    const control = this.formControlInput();
+    return control.invalid && this.submitted();
+  }
+
   gainFocus() {
-    this.isInvalid.set(false);
     this.isFocused.set(true);
   }
 }

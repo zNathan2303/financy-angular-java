@@ -10,6 +10,7 @@ import {
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import { CATEGORY_ICONS } from '../../../shared/icons/categories';
 import { RouterLink } from '@angular/router';
+import { Transaction } from '../api/dashboard-model';
 
 @Component({
   selector: 'app-recent-transactions',
@@ -23,20 +24,7 @@ export class RecentTransactions {
   readonly ChevronRight = ChevronRight;
   readonly Plus = Plus;
 
-  recentTransactions = input.required<
-    Array<{
-      id: number;
-      description: string;
-      date: Date;
-      category: {
-        title: string;
-        color: string;
-        icon: string;
-      };
-      income: boolean;
-      value: number;
-    }>
-  >();
+  recentTransactions = input.required<Array<Transaction>>();
 
   getCategoryIcon(name: string): LucideIconData {
     return CATEGORY_ICONS[name as keyof typeof CATEGORY_ICONS];

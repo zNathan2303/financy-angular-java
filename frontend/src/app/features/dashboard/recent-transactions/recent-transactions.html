@@ -5,6 +5,11 @@
     <lucide-icon [img]="ChevronRight" size="20" />
   </a>
 </div>
+@if (recentTransactions().length == 0) {
+<div class="no-transaction">
+  Não há transações recentes.
+</div>
+} @else {
 @for (transaction of recentTransactions(); track transaction.id) {
 <div class="transaction">
   <div class="icon-and-info">
@@ -30,6 +35,7 @@
     }
   </div>
 </div>
+}
 }
 <div class="new-transaction">
   <button>

@@ -44,7 +44,7 @@
         Todas
       </app-select-option>
 
-      @for (category of categories; track category.id) {
+      @for (category of categories(); track category.id) {
       <app-select-option [value]="category.title" [optionName]="category.title">
         <p [ngClass]="`tag-${category.color}-color`">
           {{ category.title }}
@@ -60,7 +60,7 @@
         <span class="label">Todos</span>
       </app-select-option>
 
-      @for (month of listMonthsOfTransactions; track month.id) {
+      @for (month of listMonthsOfTransactions(); track month.id) {
       <app-select-option [value]="month.dateInString" [optionName]="month.month">
         <p>
           {{ month.month }}
@@ -177,7 +177,7 @@
   </div>
   } @else {
   <div>
-    Você não tem transações.
+    Você não possui transações.
   </div>
   }
 </main>

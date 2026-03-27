@@ -6,16 +6,16 @@
   </div>
   <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <app-input-base [labelText]="'E-mail'" [formControlInput]="emailFormControl" [fieldName]="'email'"
-      [placeholder]="'mail@exemplo.com'" [type]="'email'">
+      [placeholder]="'mail@exemplo.com'" [type]="'email'" [submitted]="submitted()">
       <lucide-icon [img]="Mail" size="16" />
     </app-input-base>
-    <app-password-input [formControlPassword]="passwordFormControl" />
+    <app-password-input [formControlPassword]="passwordFormControl" [submitted]="submitted()" />
     <div class="options">
       <label for="remember-login" class="remember-login">
-        <input type="checkbox" id="remember-login">
+        <input type="checkbox" id="remember-login" [formControl]="rememberMeFormControl">
         Lembrar-me
       </label>
-      <a class="link-to-another-page" href="#">Recuperar senha</a>
+      <a class="link-to-another-page" routerLink="/recover-password">Recuperar senha</a>
     </div>
     <button type="submit" class="login">
       Entrar
@@ -28,7 +28,7 @@
   </div>
   <div class="create-account-container">
     <p>Ainda não tem uma conta?</p>
-    <button class="create-account">
+    <button class="create-account" (click)="goToCreateAccountPage()">
       <lucide-icon [img]="UserRoundPlus" size="18" />
       Criar conta
     </button>
