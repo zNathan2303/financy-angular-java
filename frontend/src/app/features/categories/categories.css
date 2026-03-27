@@ -1,0 +1,227 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 48px;
+}
+
+.top-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-container div h1 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--gray-800);
+}
+
+.top-container div h2 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--gray-600);
+}
+
+.top-container button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: none;
+  font: inherit;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--brand-base);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.top-container button:hover {
+  transform: scale(103%);
+}
+
+.top-container button:active {
+  transform: scale(101%);
+}
+
+.top-container button lucide-icon {
+  color: var(--gray-100);
+}
+
+.top-info {
+  display: flex;
+  width: 100%;
+  gap: 24px;
+}
+
+.top-info .card {
+  display: flex;
+  align-items: start;
+  gap: 28px;
+  flex-grow: 1;
+  background-color: white;
+  border: 1px solid var(--gray-200);
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.top-info .card lucide-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.top-info .card:nth-child(1) lucide-icon {
+  color: var(--gray-700);
+}
+
+.top-info .card:nth-child(2) lucide-icon {
+  color: var(--purple-base);
+}
+
+.top-info .card:nth-child(3) lucide-icon {
+  color: var(--blue-base);
+}
+
+.top-info .card div {
+  display: flex;
+  flex-direction: column;
+  color: var(--gray-800);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 32px;
+  gap: 8px;
+}
+
+.top-info .card div p {
+  color: var(--gray-500);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.cards .card {
+  padding: 24px;
+  background-color: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cards .card .top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.cards .card .top-content > lucide-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.actions button {
+  all: unset;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.actions button:hover {
+  transform: scale(105%);
+}
+
+.actions button:active {
+  transform: scale(102%);
+}
+
+.actions .trash {
+  color: var(--danger);
+}
+
+.actions .edit {
+  color: var(--gray-700);
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.texts p:nth-child(1) {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--gray-800);
+}
+
+.texts p:nth-child(2) {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-600);
+}
+
+.bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom-content p:nth-child(1) {
+  width: min-content;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.bottom-content p:nth-child(2) {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: end;
+  color: var(--gray-600);
+}

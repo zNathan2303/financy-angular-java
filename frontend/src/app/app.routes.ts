@@ -39,9 +39,8 @@ export const routes: Routes = [
   },
   {
     path: 'categories',
-    loadComponent: () =>
-      import('./shared/pages/not-implemented/not-implemented').then((c) => c.NotImplemented),
-    title: 'Página não implementada | Financy',
+    loadComponent: () => import('./features/categories/categories').then((c) => c.Categories),
+    title: 'Categorias | Financy',
   },
   {
     path: 'profile',

@@ -1,0 +1,66 @@
+<app-header></app-header>
+<main>
+  <div class="top-container">
+    <div>
+      <h1>Categorias</h1>
+      <h2>Organize suas transações por categorias</h2>
+    </div>
+    <button>
+      <lucide-icon [img]="Plus" />
+      Nova categoria
+    </button>
+  </div>
+  <div class="top-info">
+    <div class="card">
+      <lucide-icon [img]="Tag" size="24" />
+      <div>
+        {{ totalCategories() }}
+        <p>TOTAL DE CATEGORIAS</p>
+      </div>
+    </div>
+    <div class="card">
+      <lucide-icon [img]="ArrowUpDown" size="24" />
+      <div>
+        {{ totalTransactions() }}
+        <p>TOTAL DE TRANSAÇÕES</p>
+      </div>
+    </div>
+    <div class="card">
+      <lucide-icon [img]="Utensils" size="24" />
+      <div>
+        {{ mostUsedCategoryTitle() }}
+        <p>CATEGORIA MAIS UTILIZADA</p>
+      </div>
+    </div>
+  </div>
+  <div class="cards">
+    @for (category of categories(); track category.id) {
+    <div class="card">
+      <div class="top-content">
+        <lucide-icon [img]="getCategoryIcon(category.icon)" size="16" [ngClass]="`tag-${category.color}-color`" />
+        <div class="actions">
+          <button class="trash">
+            <lucide-icon [img]="Trash" size="16" />
+          </button>
+          <button class="edit">
+            <lucide-icon [img]="SquarePen" size="16" />
+          </button>
+        </div>
+      </div>
+      <div class="texts">
+        <p>{{ category.title }}</p>
+        <p>{{ category.description }}</p>
+      </div>
+      <div class="bottom-content">
+        <p [ngClass]="`tag-${category.color}-color`">
+          {{ category.title }}
+        </p>
+        <p class="itens-count">
+          {{ category.itemsCount }}
+          {{category.itemsCount == 0 || category.itemsCount == 1 ? 'item' : 'itens'}}
+        </p>
+      </div>
+    </div>
+    }
+  </div>
+</main>
