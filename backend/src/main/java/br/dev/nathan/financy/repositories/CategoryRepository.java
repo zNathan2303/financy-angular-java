@@ -25,6 +25,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
         LEFT JOIN Transaction t
             ON t.category.id = c.id
             AND t.user.id = :userId
+        WHERE c.user.id = :userId
         GROUP BY c.id, c.title, c.color
         ORDER BY
             COALESCE(SUM(t.value), 0) DESC,
