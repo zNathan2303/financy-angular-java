@@ -14,21 +14,21 @@
     <div class="card">
       <lucide-icon [img]="Tag" size="24" />
       <div>
-        {{ totalCategories() }}
+        <p>{{ totalCategories() | number:'1.0-0' }}</p>
         <p>TOTAL DE CATEGORIAS</p>
       </div>
     </div>
     <div class="card">
       <lucide-icon [img]="ArrowUpDown" size="24" />
       <div>
-        {{ totalTransactions() }}
+        <p>{{totalTransactions() | number:'1.0-0'}}</p>
         <p>TOTAL DE TRANSAÇÕES</p>
       </div>
     </div>
     <div class="card" [style.--color]="getColorVar(mostUsedCategory().color)">
-      <lucide-icon [img]="getCategoryIcon(mostUsedCategory().icon)" size="24" />
+      <lucide-icon [img]="mostUsedCategory().icon ? getCategoryIcon(mostUsedCategory().icon) : Frown" size="24" />
       <div>
-        {{ mostUsedCategory().title }}
+        <p>{{ mostUsedCategory().title }}</p>
         <p>CATEGORIA MAIS UTILIZADA</p>
       </div>
     </div>
@@ -56,8 +56,8 @@
           {{ category.title }}
         </p>
         <p class="itens-count">
-          {{ category.itemsCount ? category.itemsCount : '0' }}
-          {{category.itemsCount == 0 || category.itemsCount == 1 ? 'item' : 'itens'}}
+          {{ category.itemsCount ? category.itemsCount : '0' | number:'1.0-0' }}
+          {{ category.itemsCount == 1 ? 'item' : 'itens'}}
         </p>
       </div>
     </div>

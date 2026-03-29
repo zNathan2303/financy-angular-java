@@ -67,7 +67,8 @@ main {
 }
 
 .top-info {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   width: 100%;
   gap: 24px;
 }
@@ -103,11 +104,17 @@ main {
 .top-info .card div {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  gap: 8px;
+}
+
+.top-info .card div p:first-child {
   color: var(--gray-800);
   font-weight: 700;
   font-size: 28px;
   line-height: 32px;
-  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .top-info .card div p {
@@ -120,7 +127,7 @@ main {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   width: 100%;
 }
@@ -186,6 +193,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
 }
 
 .texts p:nth-child(1) {
@@ -193,6 +201,8 @@ main {
   font-size: 16px;
   line-height: 24px;
   color: var(--gray-800);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .texts p:nth-child(2) {
@@ -200,22 +210,26 @@ main {
   font-size: 14px;
   line-height: 20px;
   color: var(--gray-600);
+  word-break: break-all;
 }
 
 .bottom-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  gap: 8px;
 }
 
 .bottom-content p:nth-child(1) {
-  width: min-content;
   align-items: center;
   padding: 4px 12px;
   border-radius: 50px;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bottom-content p:nth-child(2) {
@@ -224,6 +238,7 @@ main {
   line-height: 20px;
   text-align: end;
   color: var(--gray-600);
+  white-space: nowrap;
 }
 
 .modal-overlay {

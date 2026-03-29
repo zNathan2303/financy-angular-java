@@ -2,6 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Header } from '../../shared/components/layout/header/header';
 import {
   ArrowUpDown,
+  Frown,
   LucideAngularModule,
   LucideIconData,
   Plus,
@@ -13,14 +14,14 @@ import {
 import { LoadingService } from '../../shared/services/loading-service';
 import { CategoryService } from '../../core/services/categories/category-service';
 import { Category, CategoryRequest } from '../../core/services/categories/category-model';
-import { NgClass } from '@angular/common';
+import { DecimalPipe, NgClass } from '@angular/common';
 import { CATEGORY_ICONS } from '../../shared/icons/categories';
 import { Modal } from './modal/modal';
 import { CategoryModalMode } from './enums/category-modal-mode';
 
 @Component({
   selector: 'app-categories',
-  imports: [Header, LucideAngularModule, NgClass, Modal],
+  imports: [Header, LucideAngularModule, NgClass, Modal, DecimalPipe],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })
@@ -31,6 +32,7 @@ export class Categories {
   readonly Plus = Plus;
   readonly Trash = Trash;
   readonly SquarePen = SquarePen;
+  readonly Frown = Frown;
 
   private categoryService = inject(CategoryService);
   private loadingService = inject(LoadingService);
@@ -49,10 +51,10 @@ export class Categories {
     const categories = this.categoriesArray();
 
     const categoryEmpty: Category = {
-      title: '.',
-      color: 'green',
+      title: 'Não há categorias',
+      color: 'gray',
       description: '.',
-      icon: 'briefcasebusiness',
+      icon: '',
       itemsCount: 0,
       id: 0,
     };
