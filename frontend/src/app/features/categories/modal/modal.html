@@ -1,0 +1,48 @@
+<div class="modal" (click)="$event.stopPropagation()">
+  <div class="top-content">
+    <div class="texts">
+      <p>
+        {{ modalState().mode === 'create' ? 'Criar categoria' : 'Editar categoria' }}
+      </p>
+      <p>Organize suas transações com categorias</p>
+    </div>
+    <button type="button" (click)="closeModal.emit()">
+      <lucide-icon [img]="X" size="16" />
+    </button>
+  </div>
+  <form [formGroup]="categoryForm" (ngSubmit)="submit()">
+    <app-input-base labelText="Título" [formControlInput]="titleFormControl" fieldName="title"
+      placeholder="Ex. Alimentação" [submitted]="submitted()"
+      errorMessage="Título é obrigatório. Deve ter no máximo 50 caracteres" />
+    <div class="description-input">
+      <app-input-base labelText="Descrição" [formControlInput]="descriptionFormControl" fieldName="description"
+        placeholder="Descrição da categoria" [submitted]="submitted()"
+        errorMessage="Descrição inválida. Deve ter no máximo 100 caracteres" />
+      <p>Opcional</p>
+    </div>
+    <div class="icons-container">
+      <p>Ícone</p>
+      <div class="icons">
+        @for (icon of icons; track icon.name) {
+        <div class="icon">
+          <input type="radio" name="icon" [value]="icon.name" [formControl]="iconFormControl">
+          <lucide-icon [img]="icon.icon" size="20" />
+        </div>
+        }
+      </div>
+    </div>
+    <div class="colors-container">
+      <p>Cor</p>
+      <div class="colors">
+        @for (color of colors; track color) {
+        <div class="color">
+          <input type="radio" name="color" [value]="color" [formControl]="colorFormControl">
+        </div>
+        }
+      </div>
+    </div>
+    <button class="button-submit" type="submit">
+      Salvar
+    </button>
+  </form>
+</div>

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Header } from '../../shared/components/layout/header/header';
 import {
   ArrowUpDown,
@@ -12,13 +12,15 @@ import {
 } from 'lucide-angular';
 import { LoadingService } from '../../shared/services/loading-service';
 import { CategoryService } from '../../core/services/categories/category-service';
-import { Category } from '../../core/services/categories/category-model';
+import { Category, CategoryRequest } from '../../core/services/categories/category-model';
 import { NgClass } from '@angular/common';
 import { CATEGORY_ICONS } from '../../shared/icons/categories';
+import { Modal } from './modal/modal';
+import { CategoryModalMode } from './enums/category-modal-mode';
 
 @Component({
   selector: 'app-categories',
-  imports: [Header, LucideAngularModule, NgClass],
+  imports: [Header, LucideAngularModule, NgClass, Modal],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })
@@ -36,15 +38,28 @@ export class Categories {
   totalCategories = signal(0);
   totalTransactions = signal(0);
   mostUsedCategoryTitle = signal('.');
+  categoriesArray = signal<Category[]>([]);
+  categories = computed(() => {
+    return this.categoriesArray().sort((a, b) =>
+      a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' }),
+    );
+  });
 
-  categories = signal<Category[]>([]);
+  isModalOpen = signal(false);
+
+  modalState = signal<{
+    mode: CategoryModalMode;
+    category?: CategoryRequest;
+  }>({
+    mode: CategoryModalMode.CREATE,
+  });
 
   ngOnInit() {
     this.loadingService.show();
 
     this.categoryService.getAll().subscribe({
       next: (res) => {
-        this.categories.set(res);
+        this.categoriesArray.set(res);
 
         this.totalCategories.set(res.length);
 
@@ -59,12 +74,54 @@ export class Categories {
         this.mostUsedCategoryTitle.set(mostUsedCategory.title);
       },
       error: (err) => {
+        alert('Ocorreu um erro ao carregar as categorias');
         console.error(err);
+        this.loadingService.hide();
       },
       complete: () => {
         this.loadingService.hide();
       },
     });
+  }
+
+  createCategory({ color, description, icon, title }: CategoryRequest) {
+    this.loadingService.show();
+
+    this.categoryService.create({ color, description, icon, title }).subscribe({
+      next: (res) => {
+        this.categoriesArray.update((categories) => [...categories, res]);
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao criar a categoria');
+        console.error(err);
+        this.closeModal();
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.closeModal();
+        this.loadingService.hide();
+      },
+    });
+  }
+
+  openModalToCreate() {
+    this.modalState.set({
+      mode: CategoryModalMode.CREATE,
+      category: undefined,
+    });
+    this.isModalOpen.set(true);
+  }
+
+  closeModal() {
+    this.isModalOpen.set(false);
+  }
+
+  handleSubmit({ color, description, icon, title }: CategoryRequest) {
+    const mode = this.modalState()?.mode;
+
+    if (mode === CategoryModalMode.CREATE) {
+      this.createCategory({ color, description, icon, title });
+    }
   }
 
   getCategoryIcon(name: string): LucideIconData {

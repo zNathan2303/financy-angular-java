@@ -1,0 +1,225 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 24px;
+  gap: 24px;
+  border-radius: 12px;
+  width: 448px;
+}
+
+.top-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.texts p:nth-child(1) {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--gray-800);
+}
+
+.texts p:nth-child(2) {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-600);
+}
+
+.top-content button {
+  all: unset;
+  background-color: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.top-content button:hover {
+  background-color: var(--gray-200);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.description-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.description-input p {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--gray-500);
+}
+
+.icons-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.icons-container > p {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-700);
+}
+
+.icons {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--gray-300);
+  color: var(--gray-500);
+  position: relative;
+  transition: 0.2s;
+}
+
+.icon:hover {
+  background-color: var(--gray-200);
+}
+
+.icon input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.icon:has(input:checked) {
+  border: 1px solid var(--brand-base);
+  background: var(--gray-100);
+}
+
+.icon lucide-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.colors-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.colors-container > p {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-700);
+}
+
+.colors {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.color {
+  position: relative;
+  height: 30px;
+  width: 50px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.color:hover {
+  background-color: var(--gray-200);
+}
+
+.color input {
+  all: unset;
+  position: absolute;
+  inset: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.color:has(input:checked) {
+  border: 1px solid var(--brand-base);
+  background: var(--gray-100);
+}
+
+.color:nth-child(1) input {
+  background-color: var(--green-base);
+}
+
+.color:nth-child(2) input {
+  background-color: var(--blue-base);
+}
+
+.color:nth-child(3) input {
+  background-color: var(--purple-base);
+}
+
+.color:nth-child(4) input {
+  background-color: var(--pink-base);
+}
+
+.color:nth-child(5) input {
+  background-color: var(--red-base);
+}
+
+.color:nth-child(6) input {
+  background-color: var(--orange-base);
+}
+
+.color:nth-child(7) input {
+  background-color: var(--yellow-base);
+}
+
+.color:nth-child(8) input {
+  background-color: var(--gray-500);
+}
+
+.button-submit {
+  all: unset;
+  height: 48px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.2s;
+  margin-top: 8px;
+  background-color: var(--brand-base);
+  color: white;
+}
+
+.button-submit:hover {
+  background-color: var(--brand-dark);
+}
