@@ -25,10 +25,10 @@
         <p>TOTAL DE TRANSAÇÕES</p>
       </div>
     </div>
-    <div class="card">
-      <lucide-icon [img]="Utensils" size="24" />
+    <div class="card" [style.--color]="getColorVar(mostUsedCategory().color)">
+      <lucide-icon [img]="getCategoryIcon(mostUsedCategory().icon)" size="24" />
       <div>
-        {{ mostUsedCategoryTitle() }}
+        {{ mostUsedCategory().title }}
         <p>CATEGORIA MAIS UTILIZADA</p>
       </div>
     </div>

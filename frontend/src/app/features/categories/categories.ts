@@ -35,14 +35,41 @@ export class Categories {
   private categoryService = inject(CategoryService);
   private loadingService = inject(LoadingService);
 
-  totalCategories = signal(0);
-  totalTransactions = signal(0);
-  mostUsedCategoryTitle = signal('.');
+  totalCategories = computed(() => this.categoriesArray().length);
+  totalTransactions = computed(() => {
+    const transactionsCount = this.categoriesArray().reduce((acc, category) => {
+      return acc + category.itemsCount;
+    }, 0);
+    return transactionsCount;
+  });
+  mostUsedCategory = computed(() => {
+    const categories = this.categoriesArray();
+
+    const categoryEmpty: Category = {
+      title: '.',
+      color: 'green',
+      description: '.',
+      icon: 'briefcasebusiness',
+      itemsCount: 0,
+      id: 0,
+    };
+
+    if (categories.length === 0) {
+      return categoryEmpty;
+    }
+
+    const mostUsedCategory = categories.reduce((acc, category) => {
+      return category.itemsCount > acc.itemsCount ? category : acc;
+    });
+    return mostUsedCategory;
+  });
+
   categoriesArray = signal<Category[]>([]);
   categories = computed(() => {
-    return this.categoriesArray().sort((a, b) =>
+    const categoriesOrderedByTitle = this.categoriesArray().sort((a, b) =>
       a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' }),
     );
+    return categoriesOrderedByTitle;
   });
 
   isModalOpen = signal(false);
@@ -60,18 +87,6 @@ export class Categories {
     this.categoryService.getAll().subscribe({
       next: (res) => {
         this.categoriesArray.set(res);
-
-        this.totalCategories.set(res.length);
-
-        const transactionsCount = res.reduce((acc, category) => {
-          return acc + category.itemsCount;
-        }, 0);
-        this.totalTransactions.set(transactionsCount);
-
-        const mostUsedCategory = res.reduce((acc, category) => {
-          return category.itemsCount > acc.itemsCount ? category : acc;
-        });
-        this.mostUsedCategoryTitle.set(mostUsedCategory.title);
       },
       error: (err) => {
         alert('Ocorreu um erro ao carregar as categorias');
@@ -140,6 +155,10 @@ export class Categories {
     if (mode === CategoryModalMode.CREATE) {
       this.createCategory({ color, description, icon, title });
     }
+  }
+
+  getColorVar(color: string) {
+    return `var(--${color}-base)`;
   }
 
   getCategoryIcon(name: string): LucideIconData {

@@ -97,7 +97,7 @@ main {
 }
 
 .top-info .card:nth-child(3) lucide-icon {
-  color: var(--blue-base);
+  color: var(--color);
 }
 
 .top-info .card div {
