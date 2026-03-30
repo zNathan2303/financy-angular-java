@@ -5,7 +5,7 @@
       <h1>Transações</h1>
       <h2>Gerencie todas as suas transações financeiras</h2>
     </div>
-    <button>
+    <button (click)="openModalToCreate()">
       <lucide-icon [img]="Plus" />
       Nova transação
     </button>
@@ -88,7 +88,7 @@
           <div class="description">
             <lucide-icon [img]="getCategoryIcon(transaction.category.icon)" size="16"
               [ngClass]="`tag-${transaction.category.color}-color`" />
-            {{ transaction.description }}
+            <p>{{ transaction.description }}</p>
           </div>
         </td>
         <td>
@@ -177,3 +177,9 @@
   </div>
   }
 </main>
+@if (isModalOpen()) {
+<div class="modal-overlay" (click)="closeModal()">
+  <app-modal (closeModal)="closeModal()" (submitEvent)="handleSubmit($event)" [modalState]="modalState()"
+    [categories]="categories()" />
+</div>
+}

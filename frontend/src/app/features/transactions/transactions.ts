@@ -19,13 +19,19 @@ import { SelectOption } from '../../shared/components/inputs/select-input/select
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import { CATEGORY_ICONS } from '../../shared/icons/categories';
 import { TransactionsService } from '../../core/services/transactions/transactions-service';
-import { Transaction } from '../../core/services/transactions/transaction-model';
+import {
+  Transaction,
+  TransactionRequest,
+} from '../../core/services/transactions/transaction-model';
 import { Category } from '../../core/services/categories/category-model';
 import { CategoryService } from '../../core/services/categories/category-service';
 import { LoadingService } from '../../shared/services/loading-service';
 import { forkJoin } from 'rxjs';
 import { DeleteButton } from '../../shared/components/buttons/delete-button/delete-button';
 import { EditButton } from '../../shared/components/buttons/edit-button/edit-button';
+import { Modal } from './modal/modal';
+import { TransactionModalMode } from './enums/transaction-modal-mode';
+import { ScrollService } from '../../shared/services/scroll-service';
 
 @Component({
   selector: 'app-transactions',
@@ -40,6 +46,7 @@ import { EditButton } from '../../shared/components/buttons/edit-button/edit-but
     CurrencyPipe,
     DeleteButton,
     EditButton,
+    Modal,
   ],
   templateUrl: './transactions.html',
   styleUrl: './transactions.css',
@@ -57,9 +64,17 @@ export class Transactions implements OnInit {
   private transactionService = inject(TransactionsService);
   private categoryService = inject(CategoryService);
   private loadingService = inject(LoadingService);
+  private scrollService = inject(ScrollService);
 
   transactions = signal<Transaction[]>([]);
   categories = signal<Category[]>([]);
+
+  modalState = signal<{
+    mode: TransactionModalMode;
+  }>({
+    mode: TransactionModalMode.CREATE,
+  });
+  isModalOpen = signal(false);
 
   ngOnInit() {
     this.loadingService.show();
@@ -269,6 +284,51 @@ export class Transactions implements OnInit {
 
   goToNextTablePage() {
     this.currentTablePageNumber.update((currentPage) => currentPage + 1);
+  }
+
+  createTransaction({ categoryId, date, description, income, value }: TransactionRequest) {
+    this.loadingService.show();
+
+    this.transactionService.create({ categoryId, date, description, income, value }).subscribe({
+      next: (res) => {
+        this.transactions.update((transactions) => {
+          const updated = [...transactions, res];
+
+          return updated.sort((a, b) => b.date.localeCompare(a.date));
+        });
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao criar a transação');
+        console.error(err);
+        this.closeModal();
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.closeModal();
+        this.loadingService.hide();
+      },
+    });
+  }
+
+  handleSubmit(transaction: TransactionRequest) {
+    const mode = this.modalState().mode;
+
+    if (mode === TransactionModalMode.CREATE) {
+      this.createTransaction(transaction);
+    }
+  }
+
+  closeModal() {
+    this.isModalOpen.set(false);
+    this.scrollService.enable();
+  }
+
+  openModalToCreate() {
+    this.modalState.set({
+      mode: TransactionModalMode.CREATE,
+    });
+    this.isModalOpen.set(true);
+    this.scrollService.disable();
   }
 
   getCategoryIcon(name: string): LucideIconData {

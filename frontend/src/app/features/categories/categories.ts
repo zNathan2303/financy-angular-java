@@ -20,6 +20,7 @@ import { Modal } from './modal/modal';
 import { CategoryModalMode } from './enums/category-modal-mode';
 import { DeleteButton } from '../../shared/components/buttons/delete-button/delete-button';
 import { EditButton } from '../../shared/components/buttons/edit-button/edit-button';
+import { ScrollService } from '../../shared/services/scroll-service';
 
 @Component({
   selector: 'app-categories',
@@ -38,6 +39,7 @@ export class Categories {
 
   private categoryService = inject(CategoryService);
   private loadingService = inject(LoadingService);
+  private scrollService = inject(ScrollService);
 
   totalCategories = computed(() => this.categoriesArray().length);
   totalTransactions = computed(() => {
@@ -171,6 +173,7 @@ export class Categories {
       category: undefined,
     });
     this.isModalOpen.set(true);
+    this.scrollService.disable();
   }
 
   openModalToUpdate(id: number) {
@@ -193,12 +196,14 @@ export class Categories {
         });
         this.loadingService.hide();
         this.isModalOpen.set(true);
+        this.scrollService.disable();
       },
     });
   }
 
   closeModal() {
     this.isModalOpen.set(false);
+    this.scrollService.enable();
   }
 
   handleSubmit(category: Category) {

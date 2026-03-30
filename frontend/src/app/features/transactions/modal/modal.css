@@ -1,0 +1,157 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 24px;
+  gap: 24px;
+  border-radius: 12px;
+  width: 448px;
+}
+
+.top-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.texts p:nth-child(1) {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--gray-800);
+}
+
+.texts p:nth-child(2) {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-600);
+}
+
+.top-content button {
+  all: unset;
+  background-color: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.top-content button:hover {
+  background-color: var(--gray-200);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.income-select {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  padding: 8px;
+}
+
+.income-select > div {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.income-select > div:hover {
+  background-color: var(--gray-100);
+}
+
+.income-select > .expense:has(input:checked) {
+  background-color: var(--gray-100);
+  border: 1px solid var(--red-base);
+}
+
+.income-select > .expense:has(input:checked) .info {
+  color: var(--red-base);
+}
+
+.income-select > .income:has(input:checked) {
+  background-color: var(--gray-100);
+  border: 1px solid var(--green-base);
+}
+
+.income-select > .income:has(input:checked) .info {
+  color: var(--green-base);
+}
+
+.income-select > div:has(input:checked) .info p {
+  color: var(--gray-800);
+}
+
+.income-select > div > input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.income-select > div > .info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: var(--gray-400);
+}
+
+.income-select > div > .info p {
+  color: var(--gray-600);
+}
+
+.date-and-value {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.date-and-value:first-child,
+.date-and-value:last-child {
+  flex-grow: 1;
+}
+
+.button-submit {
+  all: unset;
+  height: 48px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.2s;
+  margin-top: 8px;
+  background-color: var(--brand-base);
+  color: white;
+}
+
+.button-submit:hover {
+  background-color: var(--brand-dark);
+}

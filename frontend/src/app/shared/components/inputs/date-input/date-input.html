@@ -1,0 +1,18 @@
+<label [ngClass]="getStateClasses()" [for]="fieldName()">
+  {{ labelText() }}
+</label>
+<div class="input-container" [ngClass]="getStateClasses()" (click)="openDatePicker(inputRef)">
+  <ng-content />
+  <input #inputRef [id]="fieldName()" type="date" [formControl]="formControlInput()" (focus)="gainFocus()"
+    (blur)="isFocused.set(false)" />
+</div>
+
+@if (isInvalid()) {
+<span class="error-message">
+  @if (errorMessage() === 'Campo inválido') {
+  * Data inválida.
+  } @else {
+  * {{ errorMessage() }}
+  }
+</span>
+}

@@ -3,8 +3,14 @@
 </label>
 <div class="input-container" [ngClass]="getStateClasses()" (click)="inputRef.focus()">
   <ng-content />
-  <input #inputRef [id]="fieldName()" [type]="type()" [formControl]="formControlInput()" [placeholder]="placeholder()"
-    (focus)="gainFocus()" (blur)="isFocused.set(false)" />
+  @if (type() === 'number') {
+  <p class="currency-symbol">
+    R$
+  </p>
+  }
+  <input #inputRef [id]="fieldName()" [type]="type()" [min]="type() === 'number' ? 0 : null"
+    [formControl]="formControlInput()" [placeholder]="placeholder()" (focus)="gainFocus()" (blur)="isFocused.set(false)"
+    (keydown)="blockNegative($event)" />
 </div>
 
 @if (isInvalid()) {

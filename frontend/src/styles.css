@@ -130,3 +130,7 @@ lucide-icon {
   background-color: var(--green-light);
   color: var(--green-dark);
 }
+
+body.no-scroll {
+  overflow: hidden;
+}

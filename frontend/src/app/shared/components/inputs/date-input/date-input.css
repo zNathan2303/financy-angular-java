@@ -36,11 +36,6 @@ label.disabled {
   cursor: default;
 }
 
-.currency-symbol {
-  color: black;
-  font-size: 14px;
-}
-
 input {
   appearance: none;
   -webkit-appearance: none;

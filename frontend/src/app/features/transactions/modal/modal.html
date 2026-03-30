@@ -1,0 +1,59 @@
+<div class="modal" (click)="$event.stopPropagation()">
+  <div class="top-content">
+    <div class="texts">
+      <p>
+        {{ modalState().mode === 'create' ? 'Nova transação' : 'Editar transação' }}
+      </p>
+      <p>Registre sua despesa ou receita</p>
+    </div>
+    <button type="button" (click)="closeModal.emit()">
+      <lucide-icon [img]="X" size="16" />
+    </button>
+  </div>
+  <form [formGroup]="transactionForm" (ngSubmit)="submit()">
+
+    <div class="income-select">
+      <div class="expense">
+        <input type="radio" name="income" [value]="false" [formControl]="incomeFormControl">
+        <div class="info">
+          <lucide-icon [img]="CircleArrowDown" size="16" />
+          <p>Despesa</p>
+        </div>
+      </div>
+      <div class="income">
+        <input type="radio" name="income" [value]="true" [formControl]="incomeFormControl">
+        <div class="info">
+          <lucide-icon [img]="CircleArrowUp" size="16" />
+          <p>Receita</p>
+        </div>
+      </div>
+    </div>
+
+    <app-input-base labelText="Descrição" [formControlInput]="descriptionFormControl" fieldName="description"
+      placeholder="Ex. Almoço no restaurante" [submitted]="submitted()"
+      errorMessage="Descrição inválida. Deve ter no máximo 100 caracteres" />
+
+    <div class="date-and-value">
+      <app-date-input labelText="Data" [formControlInput]="dateFormControl" fieldName="date" [submitted]="submitted()"
+        errorMessage="Data inválida. É obrigatória" />
+      <app-input-base labelText="Valor" [formControlInput]="valueFormControl" fieldName="value"
+        [submitted]="submitted()" type="number" placeholder="0,00"
+        errorMessage="Valor inválido. Deve ser maior que 0 e menor que 999.999,99" />
+    </div>
+
+    <app-select-input (viewSelectedValue)="selectCategory($event)" label="Categoria" name="category"
+      [submitted]="submitted()" [invalid]="categoryInvalid()" placeholder="Selecione">
+      @for (category of categories(); track category.id) {
+      <app-select-option [value]="category.id.toString()" [optionName]="category.title">
+        <p [ngClass]="`tag-${category.color}-color`">
+          {{ category.title }}
+        </p>
+      </app-select-option>
+      }
+    </app-select-input>
+
+    <button class="button-submit" type="submit">
+      Salvar
+    </button>
+  </form>
+</div>

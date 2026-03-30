@@ -12,3 +12,11 @@ export interface Transaction {
     icon: string;
   };
 }
+
+export interface TransactionRequest {
+  description: string;
+  date: string;
+  value: number;
+  income: boolean;
+  categoryId: number;
+}

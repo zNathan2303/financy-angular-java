@@ -5,6 +5,12 @@
   <lucide-icon [img]="ChevronIcon()" size="16" />
 </button>
 
+@if (isInvalid()) {
+<span class="error-message">
+  * {{ label() }} é obrigatória
+</span>
+}
+
 @if (isOpen()) {
 <ul id="options">
   <ng-content />

@@ -38,6 +38,8 @@ export class SelectInput {
   placeholder = input.required<string>();
   label = input.required<string>();
   name = input.required<string>();
+  submitted = input(false);
+  invalid = input(false);
 
   selectedOptionName = signal<string | null>(null);
   displayValue = computed(() => this.selectedOptionName() ?? this.placeholder());
@@ -94,6 +96,10 @@ export class SelectInput {
 
   toggleMenuState() {
     this.isOpen.set(!this.isOpen());
+  }
+
+  isInvalid() {
+    return this.invalid();
   }
 
   isSelected = (optionName: string): boolean => {

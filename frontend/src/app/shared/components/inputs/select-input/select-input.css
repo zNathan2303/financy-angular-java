@@ -42,6 +42,8 @@ label {
   color: var(--gray-800);
   font-size: 16px;
   line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #options {
@@ -55,4 +57,10 @@ label {
   overflow: scroll;
   overflow-x: hidden;
   z-index: 100;
+}
+
+.error-message {
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 4px;
 }
