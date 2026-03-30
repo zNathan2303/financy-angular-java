@@ -22,4 +22,8 @@ export class TransactionsService {
       value,
     });
   }
+
+  deleteById(id: number) {
+    return this.http.delete(`${this.pathTransactions}/${id}`);
+  }
 }

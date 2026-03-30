@@ -127,7 +127,7 @@
         </td>
         <td>
           <div class="actions">
-            <app-delete-button />
+            <app-delete-button (clickEvent)="deleteTransaction(transaction.id)" />
             <app-edit-button />
           </div>
         </td>

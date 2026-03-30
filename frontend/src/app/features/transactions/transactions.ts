@@ -310,6 +310,24 @@ export class Transactions implements OnInit {
     });
   }
 
+  deleteTransaction(id: number) {
+    this.loadingService.show();
+
+    this.transactionService.deleteById(id).subscribe({
+      next: (res) => {
+        this.transactions.update((transactions) => transactions.filter((t) => t.id !== id));
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao excluir a transação');
+        console.error(err);
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.loadingService.hide();
+      },
+    });
+  }
+
   handleSubmit(transaction: TransactionRequest) {
     const mode = this.modalState().mode;
 
