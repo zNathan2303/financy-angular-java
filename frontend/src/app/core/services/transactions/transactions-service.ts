@@ -26,4 +26,18 @@ export class TransactionsService {
   deleteById(id: number) {
     return this.http.delete(`${this.pathTransactions}/${id}`);
   }
+
+  getbyId(id: number) {
+    return this.http.get<Transaction>(`${this.pathTransactions}/${id}`);
+  }
+
+  update({ categoryId, date, description, income, value }: TransactionRequest, id: number) {
+    return this.http.put<Transaction>(`${this.pathTransactions}/${id}`, {
+      categoryId,
+      date,
+      description,
+      income,
+      value,
+    });
+  }
 }

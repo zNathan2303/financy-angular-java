@@ -328,15 +328,45 @@ export class Transactions implements OnInit {
     });
   }
 
-  handleSubmit(transaction: TransactionRequest) {
+  updateTransaction({ date, category, description, id, income, value }: Transaction) {
+    this.loadingService.show();
+
+    const categoryId = category.id;
+
+    this.transactionService.update({ categoryId, date, description, income, value }, id).subscribe({
+      next: (res) => {
+        this.transactions.update((transactions) => {
+          const updated = transactions.map((t) => (t.id === id ? res : t));
+
+          return updated.sort((a, b) => b.date.localeCompare(a.date));
+        });
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao atualizar a transação');
+        console.error(err);
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.loadingService.hide();
+        this.closeModal();
+      },
+    });
+  }
+
+  handleSubmit(transaction: TransactionRequest | Transaction) {
     const mode = this.modalState().mode;
 
     if (mode === TransactionModalMode.CREATE) {
-      this.createTransaction(transaction);
+      this.createTransaction(transaction as TransactionRequest);
+    }
+
+    if (mode === TransactionModalMode.EDIT) {
+      this.updateTransaction(transaction as Transaction);
     }
   }
 
   closeModal() {
+    localStorage.removeItem('transaction-searched');
     this.isModalOpen.set(false);
     this.scrollService.enable();
   }
@@ -347,6 +377,28 @@ export class Transactions implements OnInit {
     });
     this.isModalOpen.set(true);
     this.scrollService.disable();
+  }
+
+  openModalToUpdate(id: number) {
+    this.loadingService.show();
+
+    this.transactionService.getbyId(id).subscribe({
+      next: (res) => {
+        localStorage.setItem('transaction-searched', JSON.stringify(res));
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao obter dados da transação');
+        console.error(err);
+      },
+      complete: () => {
+        this.modalState.set({
+          mode: TransactionModalMode.EDIT,
+        });
+        this.loadingService.hide();
+        this.isModalOpen.set(true);
+        this.scrollService.disable();
+      },
+    });
   }
 
   getCategoryIcon(name: string): LucideIconData {

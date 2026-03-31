@@ -74,7 +74,7 @@ main {
   display: grid;
   gap: 16px;
   grid-template-areas: 'a1 a2 a3 a4';
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   padding: 20px 24px 24px 24px;
   border: 1px solid var(--gray-200);
 }
@@ -113,6 +113,9 @@ app-select-input[label='Categoria'] app-select-option p {
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 90%;
 }
 
 .filters app-select-input[label='Período'] {

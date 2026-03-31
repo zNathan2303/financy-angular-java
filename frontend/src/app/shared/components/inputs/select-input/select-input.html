@@ -1,7 +1,7 @@
 <label (click)="toggleMenuState()">{{ label() }}</label>
 
 <button id="select-button" type="button" (click)="toggleMenuState()">
-  <div id="selected-value">{{ displayValue() }}</div>
+  <span id="selected-value">{{ displayValue() }}</span>
   <lucide-icon [img]="ChevronIcon()" size="16" />
 </button>
 

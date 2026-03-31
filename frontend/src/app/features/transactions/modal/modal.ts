@@ -34,7 +34,7 @@ export class Modal {
   readonly CircleArrowUp = CircleArrowUp;
 
   closeModal = output<void>();
-  submitEvent = output<TransactionRequest>();
+  submitEvent = output<Transaction | TransactionRequest>();
 
   modalState = input<{
     mode: TransactionModalMode;
@@ -46,6 +46,7 @@ export class Modal {
   categoryInvalid = computed(() => {
     return this.submitted() && this.selectedCategory() === null;
   });
+  selectedCategoryName = signal<string | null>(null);
 
   categories = input.required<Category[]>();
 
@@ -59,7 +60,7 @@ export class Modal {
       nonNullable: true,
     },
   );
-  today: string = new Date().toISOString().split('T')[0];
+  today: string = new Date().toLocaleDateString('en-CA');
   dateFormControl = new FormControl(
     { value: this.today, disabled: false },
     {
@@ -88,6 +89,27 @@ export class Modal {
     value: this.valueFormControl,
   });
 
+  constructor() {
+    const value = localStorage.getItem('transaction-searched');
+
+    if (!value) return;
+
+    const transactionToUpdate: Transaction = JSON.parse(value);
+
+    this.transactionForm.patchValue({
+      income: transactionToUpdate.income,
+      date: transactionToUpdate.date,
+      description: transactionToUpdate.description,
+      value: transactionToUpdate.value,
+    });
+    this.selectedCategory.set(transactionToUpdate.category.id.toString());
+    this.selectedCategoryName.set(transactionToUpdate.category.title);
+
+    this.transactionForm.markAsPristine();
+    this.transactionForm.markAsUntouched();
+    this.submitted.set(false);
+  }
+
   submit() {
     this.transactionForm.markAllAsTouched();
     this.submitted.set(true);
@@ -96,22 +118,50 @@ export class Modal {
 
     const categoryId = this.selectedCategory();
 
+    if (!categoryId) return;
+
     const { date, description, income, value } = this.transactionForm.getRawValue();
 
     const descriptionFormatted = description.trim();
     const numberValue = Number(Number(value.toString().replace(',', '.')).toFixed(2));
 
-    this.submitEvent.emit({
-      description: descriptionFormatted,
-      date,
-      income,
-      value: numberValue,
-      categoryId: Number(categoryId),
-    });
+    const transactionToUpdate = localStorage.getItem('transaction-searched');
+
+    if (transactionToUpdate) {
+      const transaction: Transaction = JSON.parse(transactionToUpdate);
+
+      this.submitEvent.emit({
+        id: transaction.id,
+        description,
+        date,
+        value: numberValue,
+        income: income,
+        category: {
+          color: '',
+          description: '',
+          icon: '',
+          id: Number(categoryId),
+          title: '',
+        },
+      });
+    } else {
+      this.submitEvent.emit({
+        description: descriptionFormatted,
+        date,
+        income,
+        value: numberValue,
+        categoryId: Number(categoryId),
+      });
+    }
   }
 
   selectCategory(value: string | null) {
     if (!value) return;
-    this.selectedCategory.set(value?.toString());
+
+    this.selectedCategory.set(value);
+
+    const category = this.categories().find((c) => c.id.toString() === value);
+
+    this.selectedCategoryName.set(category?.title ?? null);
   }
 }

@@ -41,9 +41,14 @@ export class SelectInput {
   submitted = input(false);
   invalid = input(false);
 
-  selectedOptionName = signal<string | null>(null);
-  displayValue = computed(() => this.selectedOptionName() ?? this.placeholder());
   viewSelectedValue = output<string | null>();
+
+  selectedValue = input<string | null>(null);
+  selectedLabel = input<string | null>(null);
+  selectedOptionName = signal<string | null>(null);
+  displayValue = computed(
+    () => this.selectedOptionName() ?? this.selectedLabel() ?? this.placeholder(),
+  );
 
   isOpen = signal(false);
 

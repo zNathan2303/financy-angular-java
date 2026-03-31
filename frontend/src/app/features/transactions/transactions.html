@@ -128,7 +128,7 @@
         <td>
           <div class="actions">
             <app-delete-button (clickEvent)="deleteTransaction(transaction.id)" />
-            <app-edit-button />
+            <app-edit-button (clickEvent)="openModalToUpdate(transaction.id)" />
           </div>
         </td>
       </tr>

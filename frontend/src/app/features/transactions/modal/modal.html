@@ -42,7 +42,8 @@
     </div>
 
     <app-select-input (viewSelectedValue)="selectCategory($event)" label="Categoria" name="category"
-      [submitted]="submitted()" [invalid]="categoryInvalid()" placeholder="Selecione">
+      [submitted]="submitted()" [invalid]="categoryInvalid()" placeholder="Selecione"
+      [selectedValue]="selectedCategory()" [selectedLabel]="selectedCategoryName()">
       @for (category of categories(); track category.id) {
       <app-select-option [value]="category.id.toString()" [optionName]="category.title">
         <p [ngClass]="`tag-${category.color}-color`">

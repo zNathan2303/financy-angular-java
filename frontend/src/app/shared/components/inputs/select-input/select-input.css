@@ -58,9 +58,3 @@ label {
   overflow-x: hidden;
   z-index: 100;
 }
-
-.error-message {
-  color: var(--danger);
-  font-size: 12px;
-  margin-top: 4px;
-}
