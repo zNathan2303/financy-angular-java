@@ -1,29 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
-import { User } from './user-model';
+import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
+import { User } from './user-model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private user = signal<User | null>(null);
-
   constructor(private http: HttpClient) {}
 
   get() {
-    return this.http.get<any>('/financy/v1/user').pipe(tap((res) => this.user.set(res)));
-  }
-
-  getUserData() {
-    return this.user();
-  }
-
-  clearUser() {
-    this.user.set(null);
-  }
-
-  getUserSignal() {
-    return this.user.asReadonly();
+    return this.http.get<User>('/financy/v1/user').pipe(
+      tap((res) => {
+        localStorage.setItem('user-info', JSON.stringify(res));
+      }),
+    );
   }
 }

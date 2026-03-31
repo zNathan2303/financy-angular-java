@@ -5,7 +5,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LucideAngularModule, Mail, UserRound, LogOut } from 'lucide-angular';
 import { Auth } from '../../core/auth/services/auth';
 import { Router } from '@angular/router';
-import { UserService } from '../../core/services/user/user-service';
+import { UserService as UserServiceHttp } from '../../core/services/user/user-service';
+import { UserService } from '../../shared/services/user-service';
 import { LoadingService } from '../../shared/services/loading-service';
 
 @Component({
@@ -21,21 +22,21 @@ export class Profile implements OnInit {
 
   private authService = inject(Auth);
   private userService = inject(UserService);
+  private userServiceHttp = inject(UserServiceHttp);
   private loadingService = inject(LoadingService);
   private router = inject(Router);
 
   letterIcon = signal('');
   fullName = signal('');
   email = signal('');
-  loading = signal(true);
 
   ngOnInit() {
     this.loadingService.show();
 
-    const userData = this.userService.getUserData();
+    const userData = this.userService.getUserInfo();
 
     if (userData) {
-      this.letterIcon.set(userData.name.charAt(0).toUpperCase());
+      this.letterIcon.set(userData.name.slice(0, 2).toUpperCase());
       this.fullName.set(userData.name);
       this.email.set(userData.email);
 
@@ -44,9 +45,9 @@ export class Profile implements OnInit {
 
       this.loadingService.hide();
     } else {
-      this.userService.get().subscribe({
+      this.userServiceHttp.get().subscribe({
         next: (res) => {
-          this.letterIcon.set(res.name.charAt(0).toUpperCase());
+          this.letterIcon.set(res.name.slice(0, 2).toUpperCase());
           this.fullName.set(res.name);
           this.email.set(res.email);
 

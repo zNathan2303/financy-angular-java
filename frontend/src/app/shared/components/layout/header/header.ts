@@ -1,7 +1,9 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Logo } from '../../../icons/logo';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { UserService } from '../../../../core/services/user/user-service';
+import { UserService as UserServiceHttp } from '../../../../core/services/user/user-service';
+import { UserService } from '../../../services/user-service';
+import { User } from '../../../../core/services/user/user-model';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +11,22 @@ import { UserService } from '../../../../core/services/user/user-service';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {
+export class Header implements OnInit {
   private router = inject(Router);
   private userService = inject(UserService);
+  private userServiceHttp = inject(UserServiceHttp);
 
-  currentUser = this.userService.getUserSignal();
+  currentUserInfo = signal<User | null>(null);
 
-  letterIcon = computed(() => {
-    const user = this.currentUser();
-    return user ? user.name.charAt(0).toUpperCase() : '.';
-  });
+  ngOnInit() {
+    const userWithInfo = this.userService.getUserInfo();
+    if (!userWithInfo) {
+      this.userServiceHttp.get();
+    }
+    this.currentUserInfo.set(userWithInfo!);
+  }
+
+  letterIcon = computed(() => this.currentUserInfo()?.name.slice(0, 2).toUpperCase());
 
   goToProfilePage() {
     this.router.navigateByUrl('/profile');
