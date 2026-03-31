@@ -82,6 +82,7 @@ export class Login {
         error: (err) => {
           alert('Erro no login');
           console.error('Erro no login', err);
+          this.loadingService.hide();
         },
         complete: () => {
           this.loadingService.hide();
