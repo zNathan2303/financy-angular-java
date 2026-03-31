@@ -115,7 +115,6 @@ app-select-input[label='Categoria'] app-select-option p {
   line-height: 20px;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 90%;
 }
 
 .filters app-select-input[label='Período'] {
