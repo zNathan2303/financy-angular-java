@@ -81,7 +81,11 @@ export class Dashboard implements OnInit {
         this.recentTransactions.update((transactions) => {
           const updated = [...transactions, res];
 
-          return updated.sort((a, b) => b.date.localeCompare(a.date));
+          updated.sort((a, b) => b.date.localeCompare(a.date));
+
+          updated.pop();
+
+          return updated;
         });
       },
       error: (err) => {
