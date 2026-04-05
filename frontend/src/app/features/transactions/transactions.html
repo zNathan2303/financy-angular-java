@@ -121,7 +121,7 @@
             @if (transaction.income) {
             {{ transaction.value | currency:'BRL': '+ R$'}}
             } @else {
-            {{ transaction.value | currency:'BRL': '+ R$'}}
+            {{ transaction.value | currency:'BRL': '- R$'}}
             }
           </div>
         </td>

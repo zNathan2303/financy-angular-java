@@ -1,5 +1,9 @@
 # Financy
 
+![Página Dashboard](screenshots/dashboard_page.png)
+![Página Transações](screenshots/transaction_page.png)
+![Página Categorias](screenshots/categories_page.png)
+
 ## Sobre o Projeto
 
 Este projeto é uma aplicação full-stack que gerencia transações financeiras que o usuário realiza diariamente, separando-as por categorias. Construído com o intuito de aprender a desenvolver aplicações front-end em angular e autenticação de usuários com o Spring Security.
