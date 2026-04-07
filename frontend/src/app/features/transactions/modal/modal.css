@@ -138,6 +138,16 @@ form {
   flex-grow: 1;
 }
 
+app-select-input app-select-option p {
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .button-submit {
   all: unset;
   height: 48px;

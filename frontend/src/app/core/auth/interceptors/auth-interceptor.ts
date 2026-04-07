@@ -3,11 +3,13 @@ import { Auth } from '../services/auth';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
+import { LoadingService } from '../../../shared/services/loading-service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(Auth);
   const token = authService.getToken();
   const router = inject(Router);
+  const loadingService = inject(LoadingService);
 
   if (token) {
     const cloned = req.clone({
@@ -19,6 +21,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           authService.logout();
 
           router.navigateByUrl('/login');
+
+          loadingService.hide();
         }
 
         return throwError(() => error);

@@ -50,6 +50,10 @@ export class Dashboard implements OnInit {
   categories = signal<Category[]>([]);
 
   ngOnInit() {
+    this.loadDashboardData();
+  }
+
+  loadDashboardData() {
     this.loadingService.show();
 
     forkJoin({
@@ -78,15 +82,7 @@ export class Dashboard implements OnInit {
 
     this.transactionService.create({ categoryId, date, description, income, value }).subscribe({
       next: (res) => {
-        this.recentTransactions.update((transactions) => {
-          const updated = [...transactions, res];
-
-          updated.sort((a, b) => b.date.localeCompare(a.date));
-
-          updated.pop();
-
-          return updated;
-        });
+        this.loadDashboardData();
       },
       error: (err) => {
         alert('Ocorreu um erro ao criar a transação');
